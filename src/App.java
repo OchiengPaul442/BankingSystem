@@ -44,26 +44,33 @@ public class App {
         System.out.println("Enter your choice:");
         int choice = inputs.nextInt();
 
+        int sum = 0;
+
         while (choice != 4) {
             switch (choice) {
                 case 1:
-                    System.out.println("\nPlease enter your pin to envok this action?");
-                    int pin = inputs.nextInt();
-                    boolean check = app.pinCheck(pin);
+                System.out.println("\nPlease enter your pin to envok this action?");
+                int pin = inputs.nextInt();
+                boolean check = app.pinCheck(pin);
+                System.out.println();
+                if (check == true) {
+                    System.out.println("\nEnter the amount to deposit:");
+                    int amount = inputs.nextInt();
+                    app.deposit(amount);
                     System.out.println();
-                    if (check == true) {
-                        System.out.println("\nEnter the amount to deposit:");
-                        int amount = inputs.nextInt();
-                        app.deposit(amount);
-                        System.out.println();
-                        System.out.printf(
-                                "Thank you for banking with BNK. You have deposited %d and your new balance is %d\n",
-                                amount, app.returnBalance());
+                    System.out.printf(
+                        "Thank you for banking with BNK. You have deposited %d and your new balance is %d\n",
+                        amount, app.returnBalance());
                         System.out.println("\nEnter your choice:");
                         choice = inputs.nextInt();
-
+                        
                     } else {
                         System.out.println("Wrong pin entered, please try again!!!");
+                        sum++;
+                        if(sum == 3){
+                            System.out.println("\nYou have entered the wrong pin 3 times Now. Please try again later or contact the bank for assistance");
+                            System.exit(0);
+                        }
                     }
 
                     break;
@@ -84,10 +91,15 @@ public class App {
                             choice = inputs.nextInt();
                         }else{
                             System.out.println("\nYou have insufficient balance to withdraw");
-                            choice = 4;
+                            System.exit(0);
                         }
                     } else {
                         System.out.println("Wrong pin entered, please try again!!!");
+                        sum++;
+                        if(sum == 3){
+                            System.out.println("\nYou have entered the wrong pin 3 times Now. Please try again later or contact the bank for assistance");
+                            System.exit(0);
+                        }
                     }
 
                     break;
@@ -103,7 +115,12 @@ public class App {
                         choice = inputs.nextInt();
 
                     } else {
-                        System.out.println("\nWrong pin entered, please try again!!!");
+                        System.out.println("Wrong pin entered, please try again!!!");
+                        sum++;
+                        if(sum == 3){
+                            System.out.println("\nYou have entered the wrong pin 3 times Now. Please try again later or contact the bank for assistance");
+                            System.exit(0);
+                        }
                     }
 
                     break;
